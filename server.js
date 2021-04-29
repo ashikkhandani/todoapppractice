@@ -55,7 +55,7 @@ app.post("/todolist", (req, res) => {
   // save
   newToDo.save(() => {
     res.redirect("/todolist");
-    // res.render("tasklist", { message: "Task successfully added" });
+    res.render("tasklist", { message: "Task successfully added" });
   });
 });
 
