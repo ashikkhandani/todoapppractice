@@ -1,0 +1,35 @@
+<h1>My TO DO List</h1>
+<hr>
+{{#if message}}
+<div class="alert alert-success" role="alert">{{message}} </div>
+{{/if}}
+<div class="addContainer">
+<form action="/todolist" method="POST" class="form">
+<label for="Title">Title</label>
+<input type="text" class="form-control" name="title" placeholder="Title..">
+<label for="Time">Time</label>
+<input type="text" class="form-control" name="time">
+<label for="Date"></label>
+<input type="date" name="date" class="form-control">
+<br>
+<button type="submit" class="btn btn-success">Add</button>
+</form>
+</div>
+<hr>
+<h2>Tasks to Do</h2>
+    {{#if items}}
+<div class="toDoList">
+
+<ul>
+    {{#each items}}
+
+
+    <li>Title: {{title}}, Time: {{time}}, Date: {{date}}  
+        <a href="/todolist/update/{{_id}}" class="btn btn-primary">Update</a>
+        <a href="/todolist/delete/{{_id}} " class="btn btn-danger" >Delete</a>
+    </li>
+    {{/each}}
+</ul>
+
+{{/if}}
+</div>
