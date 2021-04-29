@@ -55,7 +55,7 @@ app.post("/todolist", (req, res) => {
   // save
   newToDo.save(() => {
     res.redirect("/todolist");
-    res.render("tasklist", { message: "Task successfully added" });
+    // res.render("tasklist", { message: "Task successfully added" });
   });
 });
 
@@ -68,7 +68,6 @@ app.get("/todolist", (req, res) => {
 
 // Update (U)
 app.get("/todolist/update/:id", (req, res) => {
-  req.body.updatedAt = Date.now();
   const taskId = req.params.id;
   ToDo.findByIdAndUpdate(taskId, { title: "Make coffee" }, (err, doc) => {
     console.log("Updated value :", doc);
@@ -78,7 +77,6 @@ app.get("/todolist/update/:id", (req, res) => {
 
 // Delete (D)
 app.get("/todolist/delete/:id", (req, res) => {
-  req.body.deletedAt = Date.now();
   const taskId = req.params.id;
   ToDo.findByIdAndDelete(taskId, (err, doc) => {
     console.log("This doc is deleted:", doc);
