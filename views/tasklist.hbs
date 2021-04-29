@@ -8,7 +8,7 @@
 <label for="Title">Title</label>
 <input type="text" class="form-control" name="title" placeholder="Title..">
 <label for="Time">Time</label>
-<input type="text" class="form-control" name="time">
+<input type="time" class="form-control" name="time">
 <label for="Date"></label>
 <input type="date" name="date" class="form-control">
 <br>
@@ -23,10 +23,10 @@
 <ul>
     {{#each items}}
 
-
     <li>Title: {{title}}, Time: {{time}}, Date: {{date}}  
         <a href="/todolist/update/{{_id}}" class="btn btn-primary">Update</a>
-        <a href="/todolist/delete/{{_id}} " class="btn btn-danger" >Delete</a>
+
+        <a href="/todolist/{{_id}} " class="btn btn-danger" >Delete</a>
     </li>
     {{/each}}
 </ul>

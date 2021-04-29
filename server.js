@@ -1,15 +1,16 @@
 // import and init express
 const express = require("express");
 const app = express();
-// PORT
-const PORT = process.env.PORT || 5000;
 // import dotenv configuration
 require("dotenv").config();
 // import mongoose
 const mongoose = require("mongoose");
 // import to do model
 const ToDo = require("./models/ToDo");
-
+// import override method
+const methodOverride = require("method-override");
+// PORT
+const PORT = process.env.PORT || 5000;
 // MongoDB connection with mongoose
 const DB_NAME = process.env.DB_NAME;
 
@@ -23,18 +24,15 @@ mongoose
     console.log("MongoDB connection failed");
   });
 
-// import Routes file
-// const toDoRouter = require("./routes/toDoRouter");
-
 // Settings :
 // static setup
 app.use(express.static(__dirname + "/public"));
 
+// override method
+app.use(methodOverride("_method"));
+
 // view engine setup
 app.set("view engine", "hbs");
-
-// built in middleware
-// app.use(express.json());
 
 // third party middleware
 app.use(
@@ -43,8 +41,6 @@ app.use(
   })
 );
 // routing
-// app.use("/", toDoRouter);
-
 // CRUD method
 
 // C (Create)
@@ -67,11 +63,18 @@ app.get("/todolist", (req, res) => {
 });
 
 // Update (U)
-app.get("/todolist/update/:id", (req, res) => {
+app.post("/todolist/:id", (req, res) => {
   const taskId = req.params.id;
-  ToDo.findByIdAndUpdate(taskId, { title: "Make coffee" }, (err, doc) => {
+  ToDo.findByIdAndUpdate(taskId, req.body, { new: true }, (err, doc) => {
     console.log("Updated value :", doc);
     res.redirect("/todolist");
+  });
+});
+// new update form
+app.get("/todolist/update/:id", (req, res) => {
+  const { id } = req.params;
+  ToDo.findById(id, (err, doc) => {
+    res.render("update", { todo: doc });
   });
 });
 
@@ -81,6 +84,13 @@ app.get("/todolist/delete/:id", (req, res) => {
   ToDo.findByIdAndDelete(taskId, (err, doc) => {
     console.log("This doc is deleted:", doc);
     res.redirect("/todolist");
+  });
+});
+// delete message page
+app.get("/todolist/:id", (req, res) => {
+  const { id } = req.params;
+  ToDo.findById(id, (ree, doc) => {
+    res.render("delete", { todo: doc });
   });
 });
 

@@ -1,0 +1,15 @@
+<div class="addContainer">
+
+<form action="/todolist/{{todo._id}}" method="POST" class="form">
+
+<label for="Title">Title</label>
+
+<input type="text" class="form-control" name="title" placeholder="Title.." value="{{todo.title}}">
+<label for="Time">Time</label>
+<input type="time" class="form-control" name="time" value="{{todo.time}} ">
+<label for="Date"></label>
+<input type="date" name="date" class="form-control" value="{{todo.date}} ">
+<br>
+<button type="submit" class="btn btn-success">Add</button>
+</form>
+</div>
