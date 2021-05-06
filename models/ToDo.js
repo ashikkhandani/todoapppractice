@@ -9,7 +9,7 @@ const toDoSchema = new Schema({
   date: String,
   createdAt: Date,
 });
-
+//Eidted
 // declaration model
 const ToDo = mongoose.model("ToDo", toDoSchema);
 
